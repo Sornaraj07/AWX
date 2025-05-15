@@ -6,5 +6,6 @@
   become_method: ansible.builtin.runas
   become_user: vedhainfotech\svc_ansible
   tasks:
-    - name: Verifiy connectivity
+    - name: Verify connectivity
       ansible.windows.win_ping:
+  
