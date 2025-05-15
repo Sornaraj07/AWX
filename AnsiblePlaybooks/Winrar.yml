@@ -1,10 +1,7 @@
 ---
 - name: Test windows connectivity
-  hosts: workstation
-  gather_facts: false
+  hosts: Windows
   become: true
-  become_method: ansible.builtin.runas
-  become_user: vedhainfotech\svc_ansible
   tasks:
     - name: Ensure Chocolatey is installed
       win_chocolatey:
