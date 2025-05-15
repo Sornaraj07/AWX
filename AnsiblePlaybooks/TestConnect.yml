@@ -1,0 +1,11 @@
+---
+- name: Test windows connectivity
+  hosts: workstation
+  gather_facts: false
+  become: true
+  become_method: ansible.builtin.runas
+  become_user: ''
+
+  tasks:
+    - name: Verifiy connectivity
+      ansible.windows.win_ping:
