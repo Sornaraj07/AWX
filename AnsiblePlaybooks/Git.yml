@@ -1,11 +1,11 @@
 ---
 - name: Install Python and Git on remote hosts
-  hosts: Linux
+  hosts: all
   become: true
   tasks:
 
     - name: Install Python and Git on RedHat/CentOS
-        yum:
+      yum:
         name:
           - python3.12
           - git
