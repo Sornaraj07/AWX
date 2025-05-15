@@ -1,6 +1,6 @@
 ---
 - name: Install Python and Git on remote hosts
-  hosts: all
+  hosts: Linux
   become: true
   tasks:
 
