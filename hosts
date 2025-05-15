@@ -8,8 +8,8 @@
 # Ex 1: Ungrouped hosts, specify before any group headers:
 
 
-192.168.31.209 masteransible
-192.168.1.212 vedha-linux01
+192.168.31.209  masteransible
+192.168.31.212  vedha-linux01
 
 
 ## green.example.com
