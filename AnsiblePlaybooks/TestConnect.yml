@@ -4,8 +4,7 @@
   gather_facts: false
   become: true
   become_method: ansible.builtin.runas
-  become_user: ''
-
+  become_user: vedhainfotech\svc_ansible
   tasks:
     - name: Verifiy connectivity
       ansible.windows.win_ping:
