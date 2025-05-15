@@ -1,6 +1,7 @@
 ---
 - name: Install WinRAR on Windows
   hosts: Windows
+  become: true
   tasks:
     - name: Ensure Chocolatey is installed
       win_chocolatey:
