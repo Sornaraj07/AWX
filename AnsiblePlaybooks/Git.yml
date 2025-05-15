@@ -5,7 +5,8 @@
   tasks:
 
     - name: Install Python and Git on RedHat/CentOS
-      yum:
+      ansible.builtin.pakcage:
+        yum:
         name:
           - python3.12
           - git
