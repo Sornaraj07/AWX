@@ -1,0 +1,14 @@
+---
+- name: Install Google Chrome on Windows
+  hosts: Windows
+  become: false
+  tasks:
+    - name: Ensure Chocolatey is installed
+      win_chocolatey:
+        name: chocolatey
+        state: present
+
+    - name: Install Google Chrome
+      win_chocolatey:
+        name: googlechrome
+        state: present
