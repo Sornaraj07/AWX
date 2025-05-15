@@ -1,5 +1,5 @@
 ---
-- name: Test windows connectivity
+- name: Install WinRar
   hosts: Windows
   become: true
   tasks:
