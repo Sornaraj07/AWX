@@ -1,0 +1,13 @@
+---
+- name: Install Python and Git on remote hosts
+  hosts: all
+  become: false
+  tasks:
+
+    - name: Install Python and Git on RedHat/CentOS
+      yum:
+        name:
+          - python3.12
+          - git
+        state: present
+      when: ansible_os_family == 'RedHat'
