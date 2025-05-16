@@ -1,6 +1,7 @@
 ---
 - name: Ping Check
-  hosts: all
+  hosts: Linux
+  become: true
 
 
   tasks:
