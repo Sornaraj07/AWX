@@ -10,5 +10,5 @@
 
     - name: Install Google Chrome
       win_chocolatey:
-        name: googlechrome
+        name: chromium
         state: present
