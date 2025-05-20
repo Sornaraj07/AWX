@@ -10,7 +10,8 @@
 
     - name: Install Google Chrome
       win_package:
-        path: C:\temp\chrome_installer.exe  
+        path: C:\temp\chrome_installer.exe
+        arguments: /silent /install 
         state: present
 
     - name: Remove Google Chrome installer
