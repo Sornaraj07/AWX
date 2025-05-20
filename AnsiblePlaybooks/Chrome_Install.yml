@@ -1,24 +1,49 @@
 ---
-- name: Install Google Chrome
+- name: Install Google Chrome on Windows hosts
   hosts: Windows
   become: yes
+  vars:
+    chrome_pkg_name: googlechrome
   tasks:
-    - name: Download Google Chrome
-      win_get_url:
-        url: https://dl.google.com/chrome/install/latest/chrome_installer.exe
-        dest: C:\temp\chrome_installer.exe
+
     - name: Ensure Chocolatey is installed
       win_chocolatey:
         name: chocolatey
         state: present
-        
-    - name: Install Google Chrome
-      win_package:
-        path: C:\temp\chrome_installer.exe
-        arguments: /silent /install 
-        state: present
+      tags: chocolatey
 
-    - name: Remove Google Chrome installer
+    - name: Install Google Chrome via Chocolatey
+      win_chocolatey:
+        name: "{{ chrome_pkg_name }}"
+        state: present
+      tags: chrome
+
+    # (Optional fallback: download & install manually if you need a specific version)
+    - name: Create temp path for Chrome installer
+      win_tempfile:
+        state: directory
+      register: tempdir
+      tags: chrome_manual
+
+    - name: Download specific Chrome installer
+      win_get_url:
+        url: https://dl.google.com/chrome/install/latest/chrome_installer.exe
+        dest: "{{ tempdir.path }}\chrome_installer.exe"
+        force: no
+      when: false   # change to `when: true` if you ever need to use this fallback
+      tags: chrome_manual
+
+    - name: Install downloaded Chrome installer
+      win_package:
+        path: "{{ tempdir.path }}\chrome_installer.exe"
+        arguments: /silent /install
+        state: present
+      when: false   # see above
+      tags: chrome_manual
+
+    - name: Remove manual installer
       win_file:
-        path: C:\temp\chrome_installer.exe
+        path: "{{ tempdir.path }}"
         state: absent
+      when: false   # see above
+      tags: chrome_manual
