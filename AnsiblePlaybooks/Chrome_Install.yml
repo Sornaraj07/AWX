@@ -7,7 +7,11 @@
       win_get_url:
         url: https://dl.google.com/chrome/install/latest/chrome_installer.exe
         dest: C:\temp\chrome_installer.exe
-
+    - name: Ensure Chocolatey is installed
+      win_chocolatey:
+        name: chocolatey
+        state: present
+        
     - name: Install Google Chrome
       win_package:
         path: C:\temp\chrome_installer.exe
