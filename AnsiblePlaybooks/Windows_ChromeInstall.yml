@@ -3,19 +3,33 @@
   hosts: Windows
   gather_facts: false
   tasks:
+    - name: Ensure WinRAR is not installed
+      win_package:
+        name: Google Chrome
+        state: absent
+    
+    - name: Ensure C:\Temp exists
+      win_file:
+        path: C:\Temp
+        state: directory
+    
+    - name: Create C:\Temp folder
+      win_file:
+        path: C:\Temp
+        state: directory
 
     - name: Download Chrome Installer
       win_get_url:
         url: https://dl.google.com/chrome/install/latest/chrome_installer.exe
-        dest: C:\chrome_installer.exe
+        dest: C:\Temp\chrome_installer.exe
 
     - name: Install Google Chrome
       win_package:
-        path: C:\chrome_installer.exe
+        path: C:\Temp\chrome_installer.exe
         arguments: /silent /install
         product_id: Google Chrome
         state: present
     - name: Clean up installer
       win_file:
-        path: C:\chrome_installer.exe
+        path: C:\Temp\chrome_installer.exe
         state: absent 

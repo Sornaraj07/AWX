@@ -1,14 +1,36 @@
 ---
-- name: Install WinRar
-  hosts: Windows
-  become: true
+- name: Install WinRAR on Windows
+  hosts: windows
+  gather_facts: false
   tasks:
-    - name: Ensure Chocolatey is installed
-      win_chocolatey:
-        name: chocolatey
+    - name: Ensure WinRAR is not installed
+      win_package:
+        name: WinRAR
+        state: absent
+    
+    - name: Ensure C:\Temp exists
+      win_file:
+        path: C:\Temp
+        state: directory
+    
+    - name: Create C:\Temp folder
+      win_file:
+        path: C:\Temp
+        state: directory
+
+    - name: Download WinRAR Installer
+      win_get_url:
+        url: https://www.rarlab.com/rar/winrar-x64-621.exe
+        dest: C:\Temp\winrar_installer.exe
+
+    - name: Install WinRAR silently
+      win_package:
+        path: C:\Temp\winrar_installer.exe
+        arguments: /S
+        product_id: WinRAR
         state: present
 
-    - name: Install WinRAR
-      win_chocolatey:
-        name: winrar
-        state: present
+    - name: Clean up installer
+      win_file:
+        path: C:\Temp\winrar_installer.exe
+        state: absent
