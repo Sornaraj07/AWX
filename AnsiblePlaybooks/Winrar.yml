@@ -3,21 +3,17 @@
   hosts: windows
   gather_facts: false
   tasks:
-    - name: Ensure WinRAR is not installed
-      win_package:
-        name: WinRAR
-        state: absent
-    
-    - name: Ensure C:\Temp exists
-      win_file:
-        path: C:\Temp
-        state: directory
     
     - name: Create C:\Temp folder
       win_file:
         path: C:\Temp
         state: directory
 
+    - name: Ensure C:\Temp exists
+      win_file:
+        path: C:\Temp
+        state: directory
+      
     - name: Download WinRAR Installer
       win_get_url:
         url: https://www.rarlab.com/rar/winrar-x64-621.exe
