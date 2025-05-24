@@ -1,0 +1,19 @@
+---
+- name: Install Google Chrome on Windows
+  hosts: Windows
+  tasks:
+    - name: Download Google Chrome
+      win_get_url:
+        url: https://dl.google.com/chrome/install/latest/chrome_installer.exe
+        dest: C:\Temp\chrome_installer.exe
+
+    - name: Install Google Chrome
+      win_package:
+        path: C:\Temp\chrome_installer.exe
+        arguments: /silent /install
+        state: present
+
+    - name: Clean up installer
+      win_file:
+        path: C:\Temp\chrome_installer.exe
+        state: absent
