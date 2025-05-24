@@ -1,6 +1,6 @@
 ---
 - name: Install WinRAR on Windows
-  hosts: windows
+  hosts: Windows
   gather_facts: false
   tasks:
     
