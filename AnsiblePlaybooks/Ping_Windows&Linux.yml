@@ -1,0 +1,6 @@
+---
+- name: Ping-Windows Servers
+  import_playbook: Windows_Ping.yml
+
+- name: Ping-Linux Servers
+  import_playbook: Linux_Ping.yml
