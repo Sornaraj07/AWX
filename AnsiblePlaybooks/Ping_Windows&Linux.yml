@@ -1,8 +1,13 @@
 ---
-- name: Ping-Windows Servers
-  import_playbook: Windows_Ping.yml
+- name: Ping multiple server groups in async jobs
+  hosts: all
+  tasks:
+    - name: Run Linux Ping playbook
+      command: ansible-playbook Linux_Ping.yml
+      async: 300
+      poll: 0
 
-- name: Ping-Linux Servers
-  import_playbook: Linux_Ping.yml
-
-  
+    - name: Run Windows Ping playbook
+      command: ansible-playbook Windows_Ping.yml
+      async: 300
+      poll: 0
