@@ -14,11 +14,11 @@
 
   tasks:
     - name: Include Windows Ping Playbook
-      include_playbook: Windows_Ping.yml
+      import_playbook: Windows_Ping.yml
       when: run_windows_ping
 
     - name: Include Linux Ping Playbook
-      include_playbook: Linux_Ping.yml
+      import_playbook: Linux_Ping.yml
       when: run_linux_ping
 
 
