@@ -1,9 +1,8 @@
 ---
-- name: Windows Ping
-  hosts: Windows
-  gather_facts: no
-  become: true
-  
+- name: Windows Ping Check
+  hosts: windows
+  gather_facts: false
+
   tasks:
-    - name: Windows_Ping
-      win_ping:
+    - name: Verify WinRM connectivity
+      ansible.windows.win_ping:
