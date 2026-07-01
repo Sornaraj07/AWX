@@ -2,6 +2,7 @@
 - name: Windows Ping
   hosts: Windows
   become: true
+  become_method: sudo
   tasks:
     - name: Windows_Ping
       win_ping:
