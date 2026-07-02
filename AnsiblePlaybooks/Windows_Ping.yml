@@ -1,12 +1,7 @@
 ---
-- name: Check Windows connectivity
-  hosts: windows
-  gather_facts: false
-
+- name: Windows Ping
+  hosts: Windows
+  become: true
   tasks:
-    - name: Ping Windows host using WinRM
-      ansible.windows.win_ping:
-
-    - name: Display success message
-      debug:
-        msg: "Connection to {{ inventory_hostname }} is successful."
+    - name: Windows_Ping
+      win_ping:
