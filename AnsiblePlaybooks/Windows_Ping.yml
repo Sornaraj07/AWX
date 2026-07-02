@@ -1,35 +1,12 @@
 ---
-- name: Windows Connectivity Test
+- name: Check Windows connectivity
   hosts: windows
   gather_facts: false
-  become: false
 
   tasks:
-
-    - name: Verify WinRM connectivity
+    - name: Ping Windows host using WinRM
       ansible.windows.win_ping:
 
-    - name: Display current logged-on user
-      ansible.windows.win_command: whoami
-      register: whoami_result
-
-    - name: Show logged-on user
-      ansible.builtin.debug:
-        msg: "{{ whoami_result.stdout }}"
-
-    - name: Display computer name
-      ansible.windows.win_shell: hostname
-      register: hostname
-
-    - name: Show hostname
-      ansible.builtin.debug:
-        msg: "{{ hostname.stdout }}"
-
-    - name: Check Windows version
-      ansible.windows.win_shell: |
-        (Get-CimInstance Win32_OperatingSystem).Caption
-      register: os_version
-
-    - name: Show OS version
-      ansible.builtin.debug:
-        msg: "{{ os_version.stdout }}"
+    - name: Display success message
+      debug:
+        msg: "Connection to {{ inventory_hostname }} is successful."
