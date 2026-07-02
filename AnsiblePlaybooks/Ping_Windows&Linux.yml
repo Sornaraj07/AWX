@@ -1,33 +1,7 @@
 ---
-#- name: Ping-Windows Servers
-
- # import_playbook: Windows_Ping.yml
-
-#- name: Ping-Linux Servers
-#  import_playbook: Linux_Ping.yml---
-- name: Conditionally include playbooks
-- name: Ping Windows and Linux Servers
+- name: Run all playbooks
   hosts: all
-  gather_facts: no
-  vars:
-    run_windows_ping: true
-    run_linux_ping: true
-
-  gather_facts: false
+  gather_facts: false  # Optional: if you don't need facts
   tasks:
-    - name: Include Windows Ping Playbook
-      import_playbook: Windows_Ping.yml
-      when: run_windows_ping
-
-    - name: Include Linux Ping Playbook
-      import_playbook: Linux_Ping.yml
-      when: run_linux_ping
-
-
-    - name: Ping Windows Servers
-      when: ansible_os_family == "Windows"
-      win_ping:
-
-    - name: Ping Linux Servers
-      when: ansible_os_family == "Linux"
-      ping:
+    - import_playbook: Windows_Ping.yml
+    - import_playbook: Linux_Ping.yml
