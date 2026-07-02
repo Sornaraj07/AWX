@@ -1,0 +1,16 @@
+---
+- name: Ping Windows
+  hosts: windows
+  gather_facts: false
+
+  tasks:
+    - name: WinRM Ping
+      ansible.windows.win_ping:
+
+- name: Ping Linux
+  hosts: linux
+  gather_facts: false
+
+  tasks:
+    - name: SSH Ping
+      ansible.builtin.ping:
