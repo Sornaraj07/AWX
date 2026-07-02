@@ -1,7 +1,3 @@
 ---
-- name: Run all playbooks
-  hosts: all
-  gather_facts: false  # Optional: if you don't need facts
-  tasks:
-    - import_playbook: Windows_Ping.yml
-    - import_playbook: Linux_Ping.yml
+- import_playbook: Windows_Ping.yml
+- import_playbook: Linux_Ping.yml
