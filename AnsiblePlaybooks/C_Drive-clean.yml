@@ -1,0 +1,42 @@
+---
+- name: Cleanup Windows C Drive
+  hosts: windows
+  gather_facts: false
+
+  tasks:
+    - name: Remove Windows Temp files
+      ansible.windows.win_shell: |
+        Remove-Item -Path "C:\Windows\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue
+
+    - name: Remove User Temp files
+      ansible.windows.win_shell: |
+        Get-ChildItem "C:\Users" -Directory | ForEach-Object {
+            $temp = Join-Path $_.FullName "AppData\Local\Temp"
+            if (Test-Path $temp) {
+                Remove-Item "$temp\*" -Recurse -Force -ErrorAction SilentlyContinue
+            }
+        }
+
+    - name: Empty Recycle Bin
+      ansible.windows.win_shell: |
+        Clear-RecycleBin -Force -ErrorAction SilentlyContinue
+
+    - name: Remove Windows Update cache
+      ansible.windows.win_shell: |
+        Stop-Service wuauserv -Force
+        Remove-Item "C:\Windows\SoftwareDistribution\Download\*" -Recurse -Force -ErrorAction SilentlyContinue
+        Start-Service wuauserv
+
+    - name: Run Disk Cleanup (if CleanMgr is installed)
+      ansible.windows.win_shell: |
+        cleanmgr.exe /VERYLOWDISK
+      ignore_errors: yes
+
+    - name: Show free space on C drive
+      ansible.windows.win_shell: |
+        Get-PSDrive C | Select-Object Used,Free
+      register: diskspace
+
+    - name: Display disk space
+      ansible.builtin.debug:
+        var: diskspace.stdout_lines
