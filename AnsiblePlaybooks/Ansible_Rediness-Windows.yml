@@ -1,0 +1,28 @@
+### Ansible Readiness Check for Windows
+
+   - name: Ping Test - Windows
+     win_ping:
+     
+   - name: Create directory structure
+     win_file:
+       path: C:\Temp\ensono_ansible_ready_check
+       state: directory
+   
+   - name: Copy wincheck.ps1 script to Remote host
+     template:
+       src: wincheck.ps1.j2
+       dest: C:\Temp\ensono_ansible_ready_check\wincheck.ps1
+       
+   - name: Run wincheck.ps1 script on Remote host
+     win_shell: C:\Temp\ensono_ansible_ready_check\wincheck.ps1
+     register: servercheck
+     
+   - name: Display output 
+     debug: 
+       var: servercheck
+
+   - name: Delete the wincheck.ps1 script on Remote host
+     win_file:
+       path: C:\Temp\ensono_ansible_ready_check\wincheck.ps1
+       state: absent
+     ignore_errors: true
