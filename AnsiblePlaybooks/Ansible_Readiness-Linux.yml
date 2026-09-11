@@ -1,0 +1,33 @@
+### Ansible Readiness Check for Linux
+   - name: Ping Test - Linux
+     ping:
+
+   - name: Create ansible directory
+     file:
+       path: "~/ansible"
+       state: directory
+     become: yes
+  
+   - name: Copy check.sh script to Remote host
+     template:
+       src: check.sh.j2
+       dest: "~/ansible/check.sh"
+       mode: '0775'
+     become: yes
+       
+   - name: Run check.sh 
+     shell: "~/ansible/check.sh"
+     register: servercheck
+     become: yes 
+   
+   - name: Display output 
+     debug: 
+       var: servercheck   
+       
+   - name: Delete the check.sh at Remote
+     file:
+       path: "{{ item }}"
+       state: absent
+     with_items:
+       - "~/ansible/check.sh"
+     become: yes 
