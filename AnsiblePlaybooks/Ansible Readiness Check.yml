@@ -1,0 +1,13 @@
+### Ansible Readiness Check for Linux
+---
+- name: Ansible Readiness 
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Ansible readiness check call for linux servers
+      include: linuxcheck.yml
+      when: ansible_os_family == "RedHat"
+    
+    - name: Ansible readiness check call for windows servers
+      include: wincheck.yml
+      when: ansible_os_family == "Windows"
